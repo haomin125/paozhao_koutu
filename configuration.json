@@ -1,0 +1,350 @@
+{
+    "UISetting": {
+        "common": {
+            "DetectorToCategory": [
+                [
+                    "defect1",
+                    "defect2"
+                ],
+                [
+                    "defect3",
+                    "defect4"
+                ]
+            ],
+            "cameraNumber": 4,
+            "defaultLoginAccount": "operator",
+            "defaultLoginRole": "operator",
+            "defectNumber": 4,
+            "includeMaintenancePage": true,
+            "passwordExpireInDays": 90,
+            "useSetupHuaLianPage": true
+        },
+        "i18n": {
+            "chn": {
+                "common": {
+                    "label": {
+                        "all": "所有",
+                        "defect1": "AI检测瑕疵",
+                        "defect2": "空粒",
+                        "defect3": "AI检测瑕疵",
+                        "defect4": "空粒",
+                        "workStation1": "第一个工位",
+                        "workStation2": "第二个工位"
+                    }
+                },
+                "operation": {
+                    "label": {
+                        "production": "总产量:"
+                    }
+                },
+
+
+                "setup": {
+                    "label": {
+                    "selectImage": "选择图片",
+                    "classify": "图片分类",
+                    "channel-1": "通道1",
+                    "channel-2": "通道2",
+                    "channel-3": "通道3",
+                    "channel-4": "通道4",
+                    "imageToClassify": "待检测图片",
+                    "sensitivity0": "工位一灵敏度:",
+                    "sensitivity1": "工位二灵敏度:",
+                    "BOARD_COUNT_PER_VIEW": "视野中药板数量:",
+                    "TABLET_COUNT_PER_BOARD": "每板药片数量:",
+                    "TABLET_ROI_COL_COUNT": "单板水平药粒数量:",
+                    "TABLET_ROI_ROW_COUNT": "单板竖直药粒数量:",
+                    "TABLET_ROI_COL_OFFSET": "药粒ROI水平方向补偿:",
+                    "TABLET_ROI_ROW_OFFSET": "药粒ROI竖直方向补偿:",
+                    "TABLET_CROP_RADIUS": "药粒抠图半径:",
+                    "exposure": "曝光时间：",
+                    "gainEnable": "增益使能：",
+                    "gainValue": "增益值：",
+                    "blackDot": "黑点",
+                    "missCorner": "缺角",
+                    "pvc": "铝箔/PVC",
+                    "grayLevelDiff": "灰度差:",
+                    "area": "面积:",
+                    "lala": "体积"
+                    }   
+                }
+
+                
+            },
+            "eng": {
+                "common": {
+                    "label": {
+                        "all": "All",
+                        "defect1": "AiDefect",
+                        "defect2": "EmptyDefect",
+                        "defect3": "AiDefect",
+                        "defect4": "EmptyDefect",
+                        "workStation1": "First Station",
+                        "workStation2": "Second Station"
+                    }
+                },
+                "operation": {
+                    "label": {
+                        "production": "Production:"
+                    }
+                }
+            }
+        },
+        "operation": {
+            "hideProductionInput": true,
+            "hideSpeed": false,
+            "hideStatsView": false,
+            "showGroupedDefects": false
+        },
+        "setup": {
+            "hideDetectionAndSensitivitySettings": false,
+            "includeCustomCommand": false,
+
+            "huaLian": {
+                "classificationResultWaitInterval": 3000,
+                "channelNumber": 4,
+                "modelSettings": {
+                    "custom": true,
+                    "list": [
+                        {
+                            "id": "sensitivity0",
+                            "type": "percent",
+                            "decimals": 5,
+                            "index": 3
+                        },
+                        {
+                            "id": "sensitivity1",
+                            "type": "percent",
+                            "decimals": 5,
+                            "index": 6
+                        }
+                    ]
+                },
+                "defectsSettings": {
+                    "show": true,
+                    "list": [
+                {
+                "id": "koutu",
+                "list": [
+                        {
+                            "id": "BOARD_COUNT_PER_VIEW",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 10,
+                            "suffix": "板",
+                            "range":[0,4]
+                        },
+                        {
+                            "id": "TABLET_COUNT_PER_BOARD",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 11,
+                            "suffix": "粒/板",
+                            "range":[0,20]
+                        },
+                        {
+                            "id": "TABLET_ROI_COL_COUNT",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 12,
+                            "suffix": "粒",
+                            "range":[0,10]
+                        },
+                        {
+                            "id": "TABLET_ROI_ROW_COUNT",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 13,
+                            "suffix": "粒",
+                            "range":[0,10]
+                        },
+                        {
+                            "id": "TABLET_ROI_COL_OFFSET",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 14,
+                            "suffix": "像素",
+                            "range":[0,1000]
+                        },
+                        {
+                            "id": "TABLET_ROI_ROW_OFFSET",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 15,
+                            "suffix": "像素",
+                            "range":[0,1000]
+                        },
+                        {
+                            "id": "TABLET_CROP_RADIUS",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 16,
+                            "suffix": "像素",
+                            "range":[0,1000]
+                        }
+                ]
+                },
+                        {
+                            "id": "blackDot",
+                            "list": [
+                                {
+                                    "id": "grayLevelDiff",
+                                    "type": "float",
+                                    "decimals": 0,
+                                    "index": 20
+                                },
+                                {
+                                    "id": "area",
+                                    "type": "float",
+                                    "decimals": 2,
+                                    "index": 21
+                                }
+                            ]
+                        },
+                        {
+                            "id": "missCorner",
+                            "list": [
+                                {
+                                    "id": "grayLevelDiff",
+                                    "type": "float",
+                                    "decimals": 0,
+                                    "index": 22
+                                },
+                                {
+                                    "id": "area",
+                                    "type": "float",
+                                    "decimals": 2,
+                                    "index": 23
+                                }
+                            ]
+                        },
+                        {
+                            "id": "pvc",
+                            "list": [
+                                {
+                                    "id": "grayLevelDiff",
+                                    "type": "float",
+                                    "decimals": 0,
+                                    "index": 24
+                                },
+                                {
+                                    "id": "area",
+                                    "type": "float",
+                                    "decimals": 2,
+                                    "index": 25
+                                }
+                            ]
+                        },
+                {
+                "id": "plotDefect",
+                "list":[
+                        {
+                            "id": "X_TEST_OFFSET1",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 17,
+                            "suffix": "像素",
+                            "range":[0,2448]
+                        },
+                        {
+                            "id": "X_TEST_OFFSET2",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 18,
+                            "suffix": "像素",
+                            "range":[0,2448]
+                        },
+                        {
+                            "id": "SPACE_SIZE",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 26,
+                            "suffix": "像素",
+                            "range":[0,1000]
+                        },
+                        {
+                            "id": "TEXT_LENGTH1",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 27,
+                            "suffix": "像素",
+                            "range":[0,2448]
+                        },
+                        {
+                            "id": "TEXT_LENGTH2",
+                            "type": "float",
+                            "decimals": 0,
+                            "index": 28,
+                            "suffix": "像素",
+                            "range":[0,2448]
+                        }
+                ]
+                }
+    
+                    ]
+                }
+            },
+            "settingsStyles": {
+                "rejectionRate": {
+                    "threshold": 3.5,
+                    "overThresholdStyle": {
+                        "color": "red"
+                    }
+                }
+            }
+
+
+        }
+    },
+
+    "CAMERA_SNs" : [
+        "Basler acA2440-20gc (24144327)",
+        "Basler acA2440-20gc (24144335)",
+        "Basler acA2440-20gc (23714102)",
+        "Basler acA2440-20gc (24144282)"
+    ],
+
+    "FRAME_ROWS" : 2048,
+    "FRAME_COLS" : 2448,
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
+    "SIGNAL_PULSE_WIDTH": "10",
+
+    "lvsu_MODEL_SIZE": [200, 230, 200, 230],
+
+    "lvsu_lowerHsv0" : [150, 10, 67],
+    "lvsu_upperHsv0" : [210, 90, 167],
+
+    "lvsu_lowerHsv1" : [150, 90, 15],
+    "lvsu_upperHsv1" : [210, 210, 240],
+
+    "lvsu_boardTop_0_0" : [690, 690, 690, 690],
+    "lvsu_boardBot_0_0" : [1685, 1685, 1685, 1685],
+    "lvsu_boardLeft_0_0" : [320, 960, 1620, 1600],
+    "lvsu_boardRight_0_0" : [920, 1600, 2270, 2270],
+
+    "lvsu_boardTop_0_1" : [685, 685, 685, 685],
+    "lvsu_boardBot_0_1" : [1670, 1670, 1670, 1670],
+    "lvsu_boardLeft_0_1" : [115, 770, 1440, 1420],
+    "lvsu_boardRight_0_1" : [750, 1400, 2060, 2040],
+
+    "lvsu_boardTop_1_0" : [1050, 50, 1050, 440],
+    "lvsu_boardBot_1_0" : [1970, 970, 1970, 1200],
+    "lvsu_boardLeft_1_0" : [330, 960, 1590, 180],
+    "lvsu_boardRight_1_0" : [920, 1550, 2180, 1800],
+
+    "lvsu_boardTop_1_1" : [80, 1070, 80, 440],
+    "lvsu_boardBot_1_1" : [1000,1990, 1000, 1200],
+    "lvsu_boardLeft_1_1" : [110, 750, 1370, 580],
+    "lvsu_boardRight_1_1" : [700, 1340, 1960, 2200],
+
+    "lvsu_lotNumCount" : 1,
+    "lvsu_lotNumRoiX_0" : [1970, 970, 1970, 0, 500, 0, 0, 0],
+    "lvsu_lotNumRoiX_1" : [1000,1990, 1000, 0, 500, 0, 0, 0],
+    "lvsu_lotNumRoiHalfWidth" : 20,
+ 
+    "lvsu_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    "lvsu_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    "lvsu_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    "lvsu_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    "lvsu_TABLET_ROI_ENABLE" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+}

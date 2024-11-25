@@ -1,0 +1,29 @@
+{
+    "lvsuPz": {
+        "ClassificationResult": {
+            "Classifying": 0,
+            "Error": -1,
+            "Good": 1,
+            "defect1": "2",
+            "defect2": "3",
+            "defect3": "4",
+            "defect4": "5"
+        },
+        "Comments": {
+            "defect1": "AiDefect",
+            "defect2": "EmptyDefect",
+            "defect3": "AiDefect",
+            "defect4": "EmptyDefect"
+        },
+        "DetectorToCategory": [
+            [
+                "defect1",
+                "defect2"
+            ],
+            [
+                "defect3",
+                "defect4"
+            ]
+        ]
+    }
+}

@@ -1,0 +1,45 @@
+cmake_minimum_required(VERSION 3.5)
+
+project(test)
+
+find_package (OpenCV REQUIRED)
+include_directories (${OpenCV_INCLUDE_DIRS})
+
+if(UNIX)
+    set(BOOST_LIBRARYDIR "/usr/local/lib")
+    find_package(Boost REQUIRED COMPONENTS system filesystem thread)
+    include_directories(${Boost_INCLUDE_DIRS})
+    link_directories(${Boost_LIBRARY_DIRS})
+else()
+    set(Boost_USE_STATIC_LIBS ON)
+    find_package(Boost 1.68.0 REQUIRED COMPONENTS system filesystem thread)
+    include_directories ("$ENV{BOOST_ROOT}")
+    link_directories ("$ENV{BOOST_ROOT}/lib64-msvc-14.1")
+endif()
+
+if(UNIX)
+    include_directories ("/usr/local/include/opencv" "/usr/local/include/opencv2")
+    link_directories("/usr/local/lib")
+
+    include_directories ("/opt/include")
+    link_directories ("/opt/lib")
+else()
+    include_directories ("C:\\opt\\include")
+    link_directories ("C:\\opt\\lib")
+endif()
+
+if(UNIX)
+	set (XJ_SERVER_LIBS product_line board view target_object bound_box camera camera_manager config detector io_card_manager io_mxe5500_manager io_manager plctag logger thread_pool tracker shared_utils web-server database workflow customized_json_config opencv_utils)
+else()
+	set (XJ_SERVER_LIBS product_line board view target_object bound_box camera camera_manager config detector io_manager plctag logger thread_pool tracker shared_utils web-server database workflow customized_json_config opencv_utils utility)
+endif()
+
+aux_source_directory(. CURRENT_SOURCES)
+
+if(UNIX)
+set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -g")
+endif()
+
+add_executable(app_test ${CURRENT_SOURCES})
+target_link_libraries (app_test ${XJ_SERVER_LIBS} ${Boost_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries (app_test -ldl -lstdc++fs)
