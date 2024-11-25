@@ -1,0 +1,28 @@
+{
+    "FRAME_ROWS" : 1080,
+    "FRAME_COLS" : 1920,
+    "lvsu_lowerHsv0" : [140, 114, 0],
+    "lvsu_upperHsv0" : [200, 254, 151],
+
+    "lvsu_lowerHsv1" : [140, 89, 0],
+    "lvsu_upperHsv1" : [200, 246, 150],
+
+    "lvsu_boardTop_0_0" : [330, 330],
+    "lvsu_boardBot_0_0" : [840, 840],
+    "lvsu_boardLeft_0_0" : [195, 940],
+    "lvsu_boardRight_0_0" : [845, 1580],
+
+    "lvsu_boardTop_0_1" : [330, 330],
+    "lvsu_boardBot_0_1" : [840, 840],
+    "lvsu_boardLeft_0_1" : [320, 1070],
+    "lvsu_boardRight_0_1" : [960, 1710],
+
+
+    "lvsu_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "lvsu_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1,1,1,1,1,1],
+    "lvsu_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "lvsu_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1]
+ 
+
+
+}
