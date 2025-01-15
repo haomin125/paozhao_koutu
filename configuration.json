@@ -4,32 +4,69 @@
             "DetectorToCategory": [
                 [
                     "defect1",
-                    "defect2"
-                ],
-                [
+                    "defect2",
                     "defect3",
-                    "defect4"
+                    "defect4",
+                    "defect5",
+                    "defect6",
+                    "defect7",
+                    "defect8",
+                    "defect9",
+                    "defect10",
+                    "defect11",
+                    "defect12",
+                    "defect13",
+                    "defect14",
+                    "defect15",
+                    "defect16",
+                    "defect17",
+                    "defect18",
+                    "defect19",
+                    "defect20",
+                    "defect21",
+                    "defect22"
                 ]
             ],
-            "cameraNumber": 4,
+            "cameraNumber": 2,
+            "OtherToCategory":
+            {
+                "1":["defect21"]
+            },
             "defaultLoginAccount": "operator",
             "defaultLoginRole": "operator",
-            "defectNumber": 4,
-            "includeMaintenancePage": true,
+            "defectNumber": 22,
             "passwordExpireInDays": 90,
-            "useSetupHuaLianPage": true
+            "projectName": "铝塑泡罩"
         },
         "i18n": {
             "chn": {
                 "common": {
                     "label": {
                         "all": "所有",
-                        "defect1": "AI检测瑕疵",
-                        "defect2": "空粒",
-                        "defect3": "AI检测瑕疵",
-                        "defect4": "空粒",
-                        "workStation1": "第一个工位",
-                        "workStation2": "第二个工位"
+                        
+                        "defect1": "2. 褶皱",
+                        "defect2": "3. 批号缺失",
+                        "defect3": "4. 空粒",
+                        "defect4": "5. 半粒",
+                        "defect5": "6. 橘皮(异形)",
+                        "defect6": "7. 错位(变形)",
+                        "defect7": "8. 成型不良(双冒)",
+                        "defect8": "9. 毛发",
+                        "defect9": "10. 裂纹",
+                        "defect10": "11.双片(压泡)",
+                        "defect11": "12.漏粉",
+                        "defect12": "13.粗糙",
+                        "defect13": "14.黑点",
+                        "defect14": "15.夹粉",
+                        "defect15": "16.接头",
+                        "defect16": "17.颗粒",
+                        "defect17": "18.漏铝膜",
+                        "defect18": "19.铝膜缺失",
+                        "defect19": "20.破损",
+                        "defect20": "21.缺角",
+                        "defect21": "22.热封不良",
+                        "defect22": "23.异物",
+                        "defect23": "24.胶囊顶冒"
                     }
                 },
                 "operation": {
@@ -37,39 +74,20 @@
                         "production": "总产量:"
                     }
                 },
-
-
                 "setup": {
                     "label": {
-                    "selectImage": "选择图片",
-                    "classify": "图片分类",
-                    "channel-1": "通道1",
-                    "channel-2": "通道2",
-                    "channel-3": "通道3",
-                    "channel-4": "通道4",
-                    "imageToClassify": "待检测图片",
-                    "sensitivity0": "工位一灵敏度:",
-                    "sensitivity1": "工位二灵敏度:",
-                    "BOARD_COUNT_PER_VIEW": "视野中药板数量:",
-                    "TABLET_COUNT_PER_BOARD": "每板药片数量:",
-                    "TABLET_ROI_COL_COUNT": "单板水平药粒数量:",
-                    "TABLET_ROI_ROW_COUNT": "单板竖直药粒数量:",
-                    "TABLET_ROI_COL_OFFSET": "药粒ROI水平方向补偿:",
-                    "TABLET_ROI_ROW_OFFSET": "药粒ROI竖直方向补偿:",
-                    "TABLET_CROP_RADIUS": "药粒抠图半径:",
-                    "exposure": "曝光时间：",
-                    "gainEnable": "增益使能：",
-                    "gainValue": "增益值：",
-                    "blackDot": "黑点",
-                    "missCorner": "缺角",
-                    "pvc": "铝箔/PVC",
-                    "grayLevelDiff": "灰度差:",
-                    "area": "面积:",
-                    "lala": "体积"
-                    }   
+                        "sensitivity0": "工位一灵敏度:",
+                        "sensitivity1": "工位二灵敏度:",
+                        "exposure": "曝光时间：",
+                        "gainEnable": "增益使能：",
+                        "gainValue": "增益值：",
+                        "blackDot": "黑点",
+                        "missCorner": "缺角",
+                        "pvc": "铝箔/PVC",
+                        "grayLevelDiff": "灰度差:",
+                        "area": "面积:"
+                    }
                 }
-
-                
             },
             "eng": {
                 "common": {
@@ -79,6 +97,9 @@
                         "defect2": "EmptyDefect",
                         "defect3": "AiDefect",
                         "defect4": "EmptyDefect",
+                        "defect5": "EmptyDefect",
+                        "defect6": "AiDefect",
+                        "defect7": "EmptyDefect",
                         "workStation1": "First Station",
                         "workStation2": "Second Station"
                     }
@@ -94,257 +115,440 @@
             "hideProductionInput": true,
             "hideSpeed": false,
             "hideStatsView": false,
-            "showGroupedDefects": false
+            "showGroupedDefects": false,
+            "showDefectAlways": true
         },
         "setup": {
             "hideDetectionAndSensitivitySettings": false,
             "includeCustomCommand": false,
-
-            "huaLian": {
-                "classificationResultWaitInterval": 3000,
-                "channelNumber": 4,
-                "modelSettings": {
-                    "custom": true,
-                    "list": [
-                        {
-                            "id": "sensitivity0",
-                            "type": "percent",
-                            "decimals": 5,
-                            "index": 3
-                        },
-                        {
-                            "id": "sensitivity1",
-                            "type": "percent",
-                            "decimals": 5,
-                            "index": 6
-                        }
-                    ]
-                },
-                "defectsSettings": {
-                    "show": true,
-                    "list": [
-                {
-                "id": "koutu",
-                "list": [
-                        {
-                            "id": "BOARD_COUNT_PER_VIEW",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 10,
-                            "suffix": "板",
-                            "range":[0,4]
-                        },
-                        {
-                            "id": "TABLET_COUNT_PER_BOARD",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 11,
-                            "suffix": "粒/板",
-                            "range":[0,20]
-                        },
-                        {
-                            "id": "TABLET_ROI_COL_COUNT",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 12,
-                            "suffix": "粒",
-                            "range":[0,10]
-                        },
-                        {
-                            "id": "TABLET_ROI_ROW_COUNT",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 13,
-                            "suffix": "粒",
-                            "range":[0,10]
-                        },
-                        {
-                            "id": "TABLET_ROI_COL_OFFSET",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 14,
-                            "suffix": "像素",
-                            "range":[0,1000]
-                        },
-                        {
-                            "id": "TABLET_ROI_ROW_OFFSET",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 15,
-                            "suffix": "像素",
-                            "range":[0,1000]
-                        },
-                        {
-                            "id": "TABLET_CROP_RADIUS",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 16,
-                            "suffix": "像素",
-                            "range":[0,1000]
-                        }
-                ]
-                },
-                        {
-                            "id": "blackDot",
-                            "list": [
-                                {
-                                    "id": "grayLevelDiff",
-                                    "type": "float",
-                                    "decimals": 0,
-                                    "index": 20
-                                },
-                                {
-                                    "id": "area",
-                                    "type": "float",
-                                    "decimals": 2,
-                                    "index": 21
-                                }
-                            ]
-                        },
-                        {
-                            "id": "missCorner",
-                            "list": [
-                                {
-                                    "id": "grayLevelDiff",
-                                    "type": "float",
-                                    "decimals": 0,
-                                    "index": 22
-                                },
-                                {
-                                    "id": "area",
-                                    "type": "float",
-                                    "decimals": 2,
-                                    "index": 23
-                                }
-                            ]
-                        },
-                        {
-                            "id": "pvc",
-                            "list": [
-                                {
-                                    "id": "grayLevelDiff",
-                                    "type": "float",
-                                    "decimals": 0,
-                                    "index": 24
-                                },
-                                {
-                                    "id": "area",
-                                    "type": "float",
-                                    "decimals": 2,
-                                    "index": 25
-                                }
-                            ]
-                        },
-                {
-                "id": "plotDefect",
-                "list":[
-                        {
-                            "id": "X_TEST_OFFSET1",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 17,
-                            "suffix": "像素",
-                            "range":[0,2448]
-                        },
-                        {
-                            "id": "X_TEST_OFFSET2",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 18,
-                            "suffix": "像素",
-                            "range":[0,2448]
-                        },
-                        {
-                            "id": "SPACE_SIZE",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 26,
-                            "suffix": "像素",
-                            "range":[0,1000]
-                        },
-                        {
-                            "id": "TEXT_LENGTH1",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 27,
-                            "suffix": "像素",
-                            "range":[0,2448]
-                        },
-                        {
-                            "id": "TEXT_LENGTH2",
-                            "type": "float",
-                            "decimals": 0,
-                            "index": 28,
-                            "suffix": "像素",
-                            "range":[0,2448]
-                        }
-                ]
-                }
-    
-                    ]
-                }
+            "draw": {
+                "maxLimit": [
+                    4, 8
+                ],
+                "minLimit": [
+                    0, 0
+                ],
+                "types": ["药板定位ROI", "批号检测ROI"]
             },
-            "settingsStyles": {
-                "rejectionRate": {
-                    "threshold": 3.5,
-                    "overThresholdStyle": {
-                        "color": "red"
-                    }
+            "showPreview": true,
+            "showUpdate": true,
+            "reloadAfterUpdate": true,
+            "flawParams": [
+                {
+                    "id": "params_detect",
+                    "name": "检测参数",
+                    "params": [
+                        {
+                            "id": "params_cropImage",
+                            "name": "抠图参数",
+                            "index": "",
+                            "hidePreview": "false",
+                            "hideUpdate": "false",
+                            "paramsList": [
+                                {
+                                    "id": "HSV_H",
+                                    "name": "药片H阈值",
+                                    "showType": "slide",
+                                    "range": [0, 210],
+                                    "step": 1,
+                                    "isRange": true
+                                },
+                                {
+                                    "id": "HSV_S",
+                                    "name": "药片S阈值",
+                                    "showType": "slide",
+                                    "range": [0, 255],
+                                    "step": 1,
+                                    "isRange": true
+                                },
+                                {
+                                    "id": "HSV_V",
+                                    "name": "药片V阈值",
+                                    "showType": "slide",
+                                    "range": [0, 255],
+                                    "step": 1,
+                                    "isRange": true
+                                },
+                                {
+                                    "id": "BOARD_COUNT_PER_VIEW",
+                                    "name": "视野中药板数量",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "TABLET_COUNT_PER_BOARD",
+                                    "name": "每板药片数量",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "TABLET_ROI_COL_COUNT",
+                                    "name": "单板水平药粒数量",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "TABLET_ROI_ROW_COUNT",
+                                    "name": "单板竖直药粒数量",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "TABLET_ROI_COL_OFFSET",
+                                    "name": "药粒定位ROI宽度",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "TABLET_ROI_ROW_OFFSET",
+                                    "name": "药粒定位ROI高度",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "LOTNUM_COUNT_PER_BOARD",
+                                    "name": "每板批号数量",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "BANMIANBUQUAN_COLS",
+                                    "name": "不全版面列数",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                }
+                            ]
+                        },
+                        {
+                            "id": "params_model",
+                            "name": "模型参数",
+                            "index": "",
+                            "hideUpdate": "true",
+                            "hidePreview": "true",
+                            "paramsList": [
+                                {
+                                    "id": "SENSITIVITY",
+                                    "name": "模型灵敏度",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 4
+                                },
+                                {
+                                    "id": "MODEL_WIDTH",
+                                    "name": "模型输入图片宽度",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "MODEL_HEIGHT",
+                                    "name": "模型输入图片高度",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "MODEL_CATEGORY",
+                                    "name": "模型分类数",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                }
+                            ]
+                        },
+                        {
+                            "id": "params_signal",
+                            "name": "信号参数",
+                            "index": "",
+                            "hideUpdate": "true",
+                            "hidePreview": "true",
+                            "paramsList": [
+                                {
+                                    "id": "TEST_TYPE",
+                                    "name": "测试类型",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "TEST_CHANNEL",
+                                    "name": "测试通道",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                }
+                            ]
+                        },
+                        {
+                            "id": "params_defect",
+                            "name": "瑕疵参数",
+                            "index": "",
+                            "hideUpdate": "true",
+                            "hidePreview": "true",
+                            "paramsList": [
+                                {
+                                    "id": "DEFECT_0",
+                                    "name": "粗糙面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_1",
+                                    "name": "黑点面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_2",
+                                    "name": "夹粉面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_3",
+                                    "name": "接头面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_4",
+                                    "name": "颗粒面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_5",
+                                    "name": "漏铝箔面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_6",
+                                    "name": "铝箔破损面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_7",
+                                    "name": "破损面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_8",
+                                    "name": "缺角面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_9",
+                                    "name": "热封不良面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_10",
+                                    "name": "异物面积阈值",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                },
+                                {
+                                    "id": "DEFECT_11",
+                                    "name": "胶囊顶冒",
+                                    "showType": "input",
+                                    "type": "float",
+                                    "precision": 0
+                                }
+
+                            ]
+                        },
+                        {
+                            "id": "params_jiaonang",
+                            "name": "胶囊检测",
+                            "index": "",
+                            "hideUpdate": "",
+                            "hidePreview": "False",
+                            "paramsList": [
+                            ]
+                        },
+                        {
+                            "id": "params_usepihao",
+                            "name": "批号检测",
+                            "index": "",
+                            "hideUpdate": "",
+                            "hidePreview": "False",
+                            "paramsList": [
+                            ]
+                        },
+                        {
+                            "id": "params_pngconvert",
+                            "name": "图像旋转",
+                            "index": "",
+                            "hideUpdate": "",
+                            "hidePreview": "False",
+                            "paramsList": [
+                            ]
+                        },
+                        {
+                            "id": "params_usemodel",
+                            "name": "使用模型",
+                            "index": "",
+                            "hideUpdate": "",
+                            "hidePreview": "False",
+                            "paramsList": [
+                            ]
+                        }
+                    ]
                 }
-            }
-
-
+            ]
         }
     },
 
     "CAMERA_SNs" : [
-        "Basler acA2440-20gc (24144327)",
-        "Basler acA2440-20gc (24144335)",
-        "Basler acA2440-20gc (23714102)",
-        "Basler acA2440-20gc (24144282)"
+       "Basler acA2440-20gc (24596467)",
+        "Basler acA2440-20gc (24666958)"
+
     ],
+                
+    "SIGNAL_PULSE_WIDTH": "50",
+    "signal_convert": false, 
+    "GOOD_SCORE":1,
+    "packetDelay":[1000,1000],
 
-    "FRAME_ROWS" : 2048,
-    "FRAME_COLS" : 2448,
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
-    "SIGNAL_PULSE_WIDTH": "10",
+    "lvsu_sentivity": [0.05,0,0,0,0,0,0,0,0,0,0,0],
+    "lvsu_segmentclass":[12,13,14,15,16,17,18,19,20,21,22],
 
-    "lvsu_MODEL_SIZE": [200, 230, 200, 230],
+    "lvsu_gamma":[0.4,0.4], 
+    "lvsu_expose": [350,350], 
+    "lvsu_H_W":[200,200],
+    "lvsu_cls-seg":[12,11],
+    "lvsu_areamin":3000,
+    "lvsu_segParameters":[12,225,13,16,14,256,15,1000,16,256,17,1000,18,36,19,121,20,100,21,1500,22,50],
+    "lvsu_lowerHsv0" : [52, 26, 121],
+    "lvsu_upperHsv0" : [95, 126, 235],
+    "lvsu_lowerHsv1" : [52, 26, 121],
+    "lvsu_upperHsv1" : [95, 126, 235],
+    "lvsu_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "lvsu_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "lvsu_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "lvsu_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    
+    "WBP_sentivity": [0.05,0,0,0,0,0,0,0,0,0,0,0],
+    "WBP_segmentclass":[13,14,23,17,19,21,22],
+    "WBP_gamma":[-1,-1], 
+    "WBP_expose": [300,300], 
+    "WBP_H_W":[192,384],
+    "WBP_areamin":3000,
+    "WBP_segParameters":[12,225,13,16,14,256,15,1000,16,256,17,1000,18,36,19,121,20,100,21,1500,22,50],
+    "WBP_lowerHsv0" : [26, 55, 28],
+    "WBP_upperHsv0" : [66, 155, 188],
+    "WBP_lowerHsv1" : [53, 126, 54],
+    "WBP_upperHsv1" : [93, 226, 214],
+    "WBP_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "WBP_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "WBP_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "WBP_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
 
-    "lvsu_lowerHsv0" : [150, 10, 67],
-    "lvsu_upperHsv0" : [210, 90, 167],
+    "apg_sentivity": [0.05,0,0,0,0,0,0,0,0,0,1,0],
+    "apg_segmentclass":[12,13,14,15,16,17],
+    "apg_gamma":[-1,-1], 
+    "apg_expose": [300,300], 
+    "apg_H_W":[130,300],
+    "apg_areamin":1000,
+    "apg_segParameters":[12,225,13,16,14,256,15,1000,16,256,17,1000,18,36,19,121,20,100,21,1500,22,50],
+    "apg_lowerHsv0" : [148,153,48],
+    "apg_upperHsv0" : [188,255,208],
+    "apg_lowerHsv1" : [72,58,0],
+    "apg_upperHsv1" : [190,158,40],
+    "apg_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "apg_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "apg_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "apg_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
 
-    "lvsu_lowerHsv1" : [150, 90, 15],
-    "lvsu_upperHsv1" : [210, 210, 240],
+    "ebst_sentivity": [0.05,0,0,0,0,0,0,0,0,0,0,0],
+    "ebst_segmentclass":[12,13,14,15,16,17,18,19,20,21,22],
+    "ebst_gamma":[0.4,0.4], 
+    "ebst_expose": [350,350], 
+    "ebst_H_W":[200,200],
+    "ebst_cls-seg":[12,11],
+    "ebst_areamin":3000,
+    "ebst_segParameters":[12,225,13,16,14,256,15,1000,16,256,17,1000,18,36,19,121,20,100,21,1500,22,50],
+    "ebst_lowerHsv0" : [150, 165, 50],
+    "ebst_upperHsv0" : [190, 265, 210],
+    "ebst_lowerHsv1" : [150, 165, 50],
+    "ebst_upperHsv1" : [190, 265, 210],
+    "ebst_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "ebst_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "ebst_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "ebst_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
 
-    "lvsu_boardTop_0_0" : [690, 690, 690, 690],
-    "lvsu_boardBot_0_0" : [1685, 1685, 1685, 1685],
-    "lvsu_boardLeft_0_0" : [320, 960, 1620, 1600],
-    "lvsu_boardRight_0_0" : [920, 1600, 2270, 2270],
+    "YDBF_sentivity": [0.05,0,0,0,0,0,0,0,0,0,0,0],
+    "YDBF_segmentclass":[12,13,14,15,16,17,18,19,20,21,22],
+    "YDBF_gamma":[0.4,0.4], 
+    "YDBF_expose": [350,350], 
+    "YDBF_H_W":[200,200],
+    "YDBF_cls-seg":[12,11],
+    "YDBF_areamin":3000,
+    "YDBF_segParameters":[12,225,13,16,14,256,15,1000,16,256,17,1000,18,36,19,121,20,100,21,1500,22,50],
+    "YDBF_lowerHsv0" : [150, 173, 39 ],
+    "YDBF_upperHsv0" : [190, 273, 199],
+    "YDBF_lowerHsv1" : [150, 173, 39 ],
+    "YDBF_upperHsv1" : [190, 273, 199],
+    "YDBF_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "YDBF_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "YDBF_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "YDBF_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
 
-    "lvsu_boardTop_0_1" : [685, 685, 685, 685],
-    "lvsu_boardBot_0_1" : [1670, 1670, 1670, 1670],
-    "lvsu_boardLeft_0_1" : [115, 770, 1440, 1420],
-    "lvsu_boardRight_0_1" : [750, 1400, 2060, 2040],
+    "TES_sentivity": [0.05,0,0,0,0,0,0,0,0,0,1,0],
+    "TEST_segmentclass":[12,13,14,15,16,17],
+    "TEST_gamma":[-1,-1], 
+    "TEST_expose": [300,300], 
+    "TEST_H_W":[260,260],
+    "TEST_areamin":1000,
+    "TEST_segParameters":[12,225,13,16,14,256,15,1000,16,256,17,1000,18,36,19,121,20,100,21,1500,22,50],
+    "TEST_lowerHsv0" : [148,153,48],
+    "TEST_upperHsv0" : [188,255,208],
+    "TEST_lowerHsv1" : [72,58,0],
+    "TEST_upperHsv1" : [190,158,40],
+    "TEST_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "TEST_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "TEST_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "TEST_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
 
-    "lvsu_boardTop_1_0" : [1050, 50, 1050, 440],
-    "lvsu_boardBot_1_0" : [1970, 970, 1970, 1200],
-    "lvsu_boardLeft_1_0" : [330, 960, 1590, 180],
-    "lvsu_boardRight_1_0" : [920, 1550, 2180, 1800],
+    "TES_sentivity": [0.05,0,0,0,0,0,0,0,0,0,1,0],
+    "TEST1_segmentclass":[12,13,14,15,16,17],
+    "TEST1_gamma":[-1,-1], 
+    "TEST1_expose": [300,300], 
+    "TEST1_H_W":[260,260],
+    "TEST1_areamin":1000,
+    "TEST1_segParameters":[12,225,13,16,14,256,15,1000,16,256,17,1000,18,36,19,121,20,100,21,1500,22,50],
+    "TEST1_lowerHsv0" : [148,153,48],
+    "TEST1_upperHsv0" : [188,255,208],
+    "TEST1_lowerHsv1" : [72,58,0],
+    "TEST1_upperHsv1" : [190,158,40],
+    "TEST1_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "TEST1_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "TEST1_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1],
+    "TEST1_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1]
 
-    "lvsu_boardTop_1_1" : [80, 1070, 80, 440],
-    "lvsu_boardBot_1_1" : [1000,1990, 1000, 1200],
-    "lvsu_boardLeft_1_1" : [110, 750, 1370, 580],
-    "lvsu_boardRight_1_1" : [700, 1340, 1960, 2200],
 
-    "lvsu_lotNumCount" : 1,
-    "lvsu_lotNumRoiX_0" : [1970, 970, 1970, 0, 500, 0, 0, 0],
-    "lvsu_lotNumRoiX_1" : [1000,1990, 1000, 0, 500, 0, 0, 0],
-    "lvsu_lotNumRoiHalfWidth" : 20,
- 
-    "lvsu_TABLET_ROI_ENABLE_0_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    "lvsu_TABLET_ROI_ENABLE_0_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    "lvsu_TABLET_ROI_ENABLE_1_0" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    "lvsu_TABLET_ROI_ENABLE_1_1" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    "lvsu_TABLET_ROI_ENABLE" : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 }
