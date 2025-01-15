@@ -265,8 +265,8 @@ void XJAppServer::initMockCameras(const string &filePath)
 	shared_ptr<MockCameraConfig> pConfig[2];
 	// pConfig[0] = make_shared<MockCameraConfig>("lvsuPz.pb", filePath + "/0.avi");
 	// pConfig[1] = make_shared<MockCameraConfig>("lvsuPz.pb", filePath + "/1.avi");
-	pConfig[0] = make_shared<MockCameraConfig>("lvsuPz.pb", "/opt/0.png");
-	pConfig[1] = make_shared<MockCameraConfig>("lvsuPz.pb", "/opt/1.png");
+	pConfig[0] = make_shared<MockCameraConfig>("lvsuPz.pb", "/opt/videos/0.avi");
+	pConfig[1] = make_shared<MockCameraConfig>("lvsuPz.pb", "/opt/videos/1.avi");
 	// pConfig[0] = make_shared<MockCameraConfig>("lvsuPz.pb", "/opt/0.avi");
 	// pConfig[1] = make_shared<MockCameraConfig>("lvsuPz.pb", "/opt/1.avi");
 	// shared_ptr<MockDirectoryConfig> pConfig[2];
@@ -410,7 +410,7 @@ timer_utils::Timer<chrono::microseconds> detectTimer;
 		LogERROR << "Board[" << boardId << "] get next image failed";
 		return false;
 	}
-
+	
 detectTimer.Reset();
 	//////////////////////////// STEP2: pre-process next image ////////////////////////////
 	LogDEBUG << "Board[" << boardId << "] process image started. \t Product count: " << m_pDetectors[boardId].m_pDetector->productCount();

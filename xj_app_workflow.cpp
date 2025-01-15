@@ -260,7 +260,7 @@ bool AppWorkflow::findBox1(const vector<vector<Point>> contours, const int SetAr
 bool AppWorkflow::findBox(const Mat img, const int num, vector<vector<Rect>> &box)
 { 
     vector<Mat> vbinaryImg;
-    for (int i = 1; i < num; i++)  //不要背景，从药板开始
+    for (int i = 1; i < num; i++)  //num:背景0，药板1、药粒2、批号3
     {
         Mat binaryImg;
         inRange(img,Scalar(i),Scalar(i),binaryImg);
@@ -288,6 +288,101 @@ bool AppWorkflow::findBox(const Mat img, const int num, vector<vector<Rect>> &bo
     return true;
 }
 
+bool AppWorkflow::tabletRoi(std::vector<cv::Rect> &boardRoiRects, std::vector<cv::Rect> &yaoliRects, const int &tabletId, std::vector<cv::Rect> &v_yaoliRoi, std::vector<int> &targetResults)
+{
+    int m_iTabletCountPerBoard_ = m_iColCount * m_iRowCount;
+    if (m_lastColCount != 0 && tabletId == 2)  //处理第二版药不全版面的药粒
+    {   
+        if(workflowId() == 0)
+        {
+            sort(yaoliRects.begin(), yaoliRects.end(), [=](auto p1, auto p2){return p1.x < p2.x;});
+        }else
+        {
+            sort(yaoliRects.begin(), yaoliRects.end(), [=](auto p1, auto p2){return p1.x > p2.x;});
+        }
+    }
+    int num(0);
+    for (int i = 0; i < yaoliRects.size(); i++)
+    {
+        Rect intersection = boardRoiRects.at(tabletId) & yaoliRects.at(i); //药粒与药板是否相交
+        if(!intersection.empty())
+        {
+            num++;
+            if(num > m_iTabletCountPerBoard_)
+            {
+                if (m_lastColCount != 0 && tabletId == 2) //不全药板
+                {
+                    break;
+                }
+                cout << "药粒分割数量多" << endl;
+                cout << "boardid_ " << workflowId() << " UI设置数量 " << m_iTabletCountPerBoard_ << " 模型检出数量： " << num << endl;
+                return false;
+            }
+            v_yaoliRoi.emplace_back(yaoliRects.at(i));
+            targetResults.emplace_back(1);
+        }
+    }
+    if(num < m_iTabletCountPerBoard_)
+    {
+        cout << "药粒分割数量少" << endl;
+        cout << "boardid_ " << workflowId() << " UI设置数量 " << m_iTabletCountPerBoard_ << " 模型检出数量： " << num << endl;
+        return false;
+    }
+    return true;
+}
+
+bool AppWorkflow::piHaoRoi(std::vector<cv::Rect> &boardRoiRects, std::vector<cv::Rect> &pihaoRects, const int &tabletId, std::vector<cv::Rect> &v_pihaoRoi, std::vector<int> &targetResults)
+{
+    int num(0);
+    int lotNumCount = RunningInfo::instance().GetProductSetting().GetFloatSetting((const int)ProductSettingFloatMapper::LOTNUM_COUNT_PER_BOARD);
+    for (int i = 0; i < pihaoRects.size(); i++)
+    {
+        Rect intersection = boardRoiRects.at(tabletId) & pihaoRects.at(i); //批号与药板是否相交
+        if(!intersection.empty())
+        {
+            num++;
+            if (num > lotNumCount)
+            {
+                cout << "批号分割数量多" << endl;
+                return false;
+            }                    
+            v_pihaoRoi.emplace_back(pihaoRects.at(i));
+            targetResults.emplace_back(1);
+        }
+    }
+    if (num < lotNumCount)
+    {
+        cout << "批号分割数量少" << endl;
+        return false;
+    }
+    return true;
+}
+
+bool AppWorkflow::boardRoi(std::vector<cv::Rect> &boardRoiRects, std::vector<cv::Rect> &boardRects, std::vector<cv::Rect> &v_boardRoi)
+{
+    for (int i = 0; i < boardRoiRects.size(); i++)
+    {
+        Rect intersection, maxRect;
+        for (int j = 0; j < boardRects.size(); j++)
+        {
+            cout << "m_boardRoiRects_size_" << m_boardRoiRects.size() << "____" << endl;
+            intersection = boardRoiRects.at(i) & boardRects.at(j); //UI药板与model药板是否相交
+            if(intersection.area() > maxRect.area())
+            {
+                maxRect = boardRects.at(j);
+            }
+        }
+        if(!maxRect.empty())
+        {
+            v_boardRoi.emplace_back(maxRect);
+        }
+    }
+    if (boardRoiRects.size() != v_boardRoi.size())
+    {
+        return false;
+    }    
+    return true;
+}
 bool AppWorkflow::position(const Mat &frame, const vector<cv::Rect> &targetRoiRects, vector<cv::Mat> &croppedImgs, vector<int> &targetResults)
 {
     vector<Mat> testMaskImg;   
@@ -295,18 +390,19 @@ bool AppWorkflow::position(const Mat &frame, const vector<cv::Rect> &targetRoiRe
     vector<Rect> v_rect;
     m_tabletRoiRects.clear();
     Mat m_workflowImage_;
-    Mat test = m_workflowImage.clone();
+    // Mat test = frame.clone();
     // Mat test = imread("test.png");
-    resize(m_workflowImage, m_workflowImage_, Size(320,256));
+    resize(frame, m_workflowImage_, Size(320,256));
     testMaskImg.emplace_back(m_workflowImage_);
     timer_utils::Timer<chrono::microseconds> detectTimer;
-    detectTimer.Reset();
+    detectTimer.Reset();    
     m_tensorrtDL_seg->getSegmentResult(testMaskImg, vMaskImg_seg);
+	opencv_utils::saveImageInTemp("/vMaskImg_seg/" + to_string(boardId()) + "_" + to_string(workflowId()), vMaskImg_seg[0]);
     cout << "vMaskImg_seg________________" << vMaskImg_seg.size() << endl;
     // cout << "模型推理 time: " <<  "]   " << detectTimer.Elapsed().count() << endl;
     // opencv_utils::saveImageInTemp("/out/" + to_string(boardId()) + "_aa_" + to_string(workflowId()), vMaskImg_seg[0]);
     
-    //计算模型分割数量
+    //step1:计算模型分割数量
     MatND hist;
     int histSize = 256;
     float range[] = {0, 256};
@@ -319,107 +415,103 @@ bool AppWorkflow::position(const Mat &frame, const vector<cv::Rect> &targetRoiRe
         {
             ++nonZeroCount;
         }
-    }     
-    // 将模型分割出来的结果存到数组里面，按药板、药粒、批号顺序。  
+    }
+    //step2:将模型分割出来的结果存到数组里面，按药板、药粒、批号顺序。  
     vector<vector<Rect>> box;
     findBox(vMaskImg_seg.at(0), nonZeroCount, box);
     
-    //检查药板数量是否正确，根据药板顺序获取对应的药粒和批号
-    int lotNumCount = RunningInfo::instance().GetProductSetting().GetFloatSetting((const int)ProductSettingFloatMapper::LOTNUM_COUNT_PER_BOARD);
-    vector<vector<Rect>> v_tabletRoi;
-    vector<Rect> v_Roi;
-    vector<Rect> v_pihaoRoi;
-    if (box.size() < 2 || box.size() > 3)   //分割数量只能是二或三，如果批号检查，则只能是三个
+
+    if (box.size() < 2 || box.size() > 3)   //分割数量只能是二或三
     {
         cout << "模型分割数量不对，药板药粒或批号异常" << box.size() << endl;        
         return false;
-    }
-    if (m_is_pihao & box.size() != 3)   //批号分割没有输出
+    }    
+
+    //step3: 找药板,药粒和批号
+    vector<vector<Rect>> v_v_tabletRoi;
+    vector<Rect> v_yaoliRoi_, v_pihaoRoi_, v_boardRoi;
+    if(!boardRoi(m_boardRoiRects, box.at(0), v_boardRoi))
     {
-        cout << "模型分割输出里没有批号" << box.size() << endl;        
+        cout << "药板数量不对" << v_boardRoi.size() << endl;
         return false;
     }
-    if (box.at(0).size() != m_iBoardCount)  //药板数量不对
-    {
-        cout << "药板数量不对_" << box.at(0).size() << endl;  
-        return false;
-    }  
-    m_boardRoiRects = m_boardRoiRects.size()==m_iBoardCount ? m_boardRoiRects : box.at(0);  
-    for (int boardIdx = 0; boardIdx < m_boardRoiRects.size(); boardIdx++)  
-    {
-        cout << "m_boardRoiRects__" << m_boardRoiRects[boardIdx] << "____" << boardIdx << endl;
+
+    for (int tabletId = 0; tabletId < v_boardRoi.size(); tabletId++)  
+    {    
+        vector<Rect> v_yaoliRoi, v_pihaoRoi;
         if (m_lastColCount != 0)
-        {    
-            int m_lastColCount_ = workflowId()==0 ? m_lastColCount : m_iColCount - m_lastColCount;
-            m_iColCount = boardIdx==0 ? m_iColCount : m_lastColCount_;
-        }
-        int m_iTabletCountPerBoard_ = m_iColCount * m_iRowCount;  //处理第二版药不全版面的药粒数
-        int tabletnum(0);
-        for (int j = 0; j < box.at(1).size(); j++)
         {
-            Rect intersection = m_boardRoiRects.at(boardIdx) & box.at(1).at(j); //药粒与药板是否相交
-            if(!intersection.empty())
-            {
-                tabletnum++;
-                if(tabletnum > m_iTabletCountPerBoard_)
-                {
-                    cout << "药粒分割数量多" << endl;
-                    cout << "m_iTabletCountPerBoard_" << m_iTabletCountPerBoard_ << endl;
-                    // continue;
-                    return false;
-                }
-                v_Roi.emplace_back(box.at(1).at(j)); //考虑药粒数量多或少怎么处理？
-                targetResults.emplace_back(1);
-            }
+            int m_lastColCount_ = workflowId()==0 ? m_lastColCount : m_iColCount - m_lastColCount; //列数是单数的时候需要打开
+            m_iColCount = tabletId==0 ? m_iColCount : m_lastColCount_;          //UI上第二个药板框是属于不全版面的
         }   
-        if(tabletnum < m_iTabletCountPerBoard_)
+
+        cout << "m_boardRoiRects__" << m_boardRoiRects[tabletId] << "____" << tabletId << endl;
+        cout << "v_boardRoi" << v_boardRoi[tabletId] << "____" << tabletId << endl;
+        cout << "box.at()" << box.at(0).at(tabletId) << "____" << tabletId << endl;
+        
+        //step3-1 找药粒,按药板顺序进行排列。分割数量不对的需要补充相应数量是NG的ROI
+        if(!tabletRoi(v_boardRoi, box.at(1), tabletId, v_yaoliRoi, targetResults))
         {
-            cout << "药粒分割数量少" << endl;
-            cout << "m_iTabletCountPerBoard_" << m_iTabletCountPerBoard_ << endl;
-            return false;
-        }
-        if(m_is_pihao & box.size() == 3)  
-        {   
-            int pihao_num(0);
-            for (int j = 0; j < box.at(2).size(); j++)
+            int m_iTabletCountPerBoard = m_iColCount * m_iRowCount;  //每板药的药粒数
+            v_yaoliRoi.clear();
+            for (size_t i = 0; i < m_iTabletCountPerBoard; i++)
             {
-                if(!(m_boardRoiRects.at(boardIdx) & box.at(2).at(j)).empty())
+                v_yaoliRoi.emplace_back(Rect(v_boardRoi[tabletId].x, v_boardRoi[tabletId].y,30,30));
+            }
+        }
+
+        //step3-2 找批号
+        if(m_is_pihao)  
+        {
+            int lotNumCount = RunningInfo::instance().GetProductSetting().GetFloatSetting((const int)ProductSettingFloatMapper::LOTNUM_COUNT_PER_BOARD);
+            if (box.size() == 3)
+            {
+                if (!piHaoRoi(v_boardRoi, box.at(2), tabletId, v_pihaoRoi, targetResults))
                 {
-                    pihao_num++;
-                    if (pihao_num > lotNumCount)
+                    v_pihaoRoi.clear();
+                    for (size_t i = 0; i < lotNumCount; i++)
                     {
-                        cout << "批号分割数量多" << endl;
-                        continue;
-                    }                    
-                    v_pihaoRoi.emplace_back(box.at(2).at(j)); //考虑批号数量多或少怎么处理？
-                    targetResults.emplace_back(1);
+                        v_pihaoRoi.emplace_back(Rect(v_boardRoi[tabletId].x, v_boardRoi[tabletId].y,30,30));
+                    }
                 }
             }
-            if (!m_is_pihao & pihao_num < lotNumCount)
+            else
             {
-                cout << "批号分割数量少" << endl;
-                return false;
-            } 
-        }  
+                for (size_t i = 0; i < lotNumCount; i++)
+                {
+                    v_pihaoRoi.emplace_back(Rect(v_boardRoi[tabletId].x, v_boardRoi[tabletId].y,30,30));
+                }
+                cout << "模型分割输出里没有批号" << box.size() << endl; 
+            }
+        }
+
+        for (size_t i = 0; i < v_yaoliRoi.size(); i++)
+        {
+            v_yaoliRoi_.emplace_back(v_yaoliRoi[i]);
+        }
+        for (size_t i = 0; i < v_pihaoRoi.size(); i++)
+        {
+            v_pihaoRoi_.emplace_back(v_pihaoRoi[i]);
+        }
     }
-    v_tabletRoi.emplace_back(v_Roi); 
-    v_tabletRoi.emplace_back(v_pihaoRoi);
+    v_v_tabletRoi.emplace_back(v_yaoliRoi_);
+    v_v_tabletRoi.emplace_back(v_pihaoRoi_);
             
     // double scale_x = m_workflowImage.cols/320.0; 
     // double scale_y = m_workflowImage.rows/256.0;
     double scale_x = IMAGE_WIDTH/KOUTU_WIDTH;
     double scale_y = IMAGE_HEIGHT/KOUTU_HEIGHT;
-    for (int i = 0; i < v_tabletRoi.size(); i++)
+    for (int i = 0; i < v_v_tabletRoi.size(); i++)
     {
-        for (int j = 0; j < v_tabletRoi.at(i).size(); j++)
+        for (int j = 0; j < v_v_tabletRoi.at(i).size(); j++)
         {
-            // opencv_utils::saveImageInTemp("/out/" + to_string(boardId()) + "_" + to_string(workflowId()), m_workflowImage_(v_tabletRoi.at(i).at(j)));
+            // opencv_utils::saveImageInTemp("/out/" + to_string(boardId()) + "_" + to_string(workflowId()), m_workflowImage_(v_v_tabletRoi.at(i).at(j)));
             // 药粒或批号中心
             Point locatePoint;
-            locatePoint.x = (v_tabletRoi.at(i).at(j).tl().x + v_tabletRoi.at(i).at(j).width/2) * scale_x;
-            locatePoint.y = (v_tabletRoi.at(i).at(j).tl().y + v_tabletRoi.at(i).at(j).height/2) * scale_y;
+            locatePoint.x = (v_v_tabletRoi.at(i).at(j).tl().x + v_v_tabletRoi.at(i).at(j).width/2) * scale_x;
+            locatePoint.y = (v_v_tabletRoi.at(i).at(j).tl().y + v_v_tabletRoi.at(i).at(j).height/2) * scale_y;
             // cout << "locatePoint-------------" << locatePoint << endl;
-            // cout << "locatePoint-------------" << v_tabletRoi.at(i).at(j).tl().y * scale_y << endl;
+            // cout << "locatePoint-------------" << v_v_tabletRoi.at(i).at(j).tl().y * scale_y << endl;
 
             int v_width, v_height;
             int rectStartIdx = int(ProductSettingFloatMapper::BOX_START_INDEX) + (boardId() + workflowId()) * 48 + 4 * 4;
@@ -511,15 +603,17 @@ bool AppWorkflow::imagePreProcess()
 
 	try
 	{
-        // if (workflowId()==0)
-        // {
-        //     return true;
-        // }   
-        // if (workflowId()==1)
-        // {
+        if (workflowId()==0)
+        {
+            m_workflowImage = imread("/opt/videos/0.png");
             // return true;
-        // }   
-		opencv_utils::saveImageInTemp("/origine/" + to_string(boardId()) + "_" + to_string(workflowId()), m_workflowImage);
+        }   
+        if (workflowId()==1)
+        {
+            m_workflowImage = imread("/opt/videos/1.png");
+            // return true;
+        }   
+		opencv_utils::saveImageInTemp("/origin/" + to_string(boardId()) + "_" + to_string(workflowId()), m_workflowImage);
             // return true;
 
 		vector<Mat> targetImgs;
@@ -527,7 +621,7 @@ bool AppWorkflow::imagePreProcess()
 
         //扣图分割推理        /*
         if (m_is_koutu)
-        {            
+        {
             if(!position(m_workflowImage, m_tabletRoiRects, targetImgs, targetResults))
             {
                 LogERROR << "Extract target object failed!";
@@ -560,9 +654,8 @@ bool AppWorkflow::imagePreProcess()
             vector<Mat> vMaskImg;
             for (size_t i = 0; i < targetImgs.size(); i++)
             {
-                // opencv_utils::saveImageInTemp("/origine/" + to_string(boardId()) + "_dddd_" + to_string(workflowId()), targetImgs[i]);
-            }            
-		                        
+                opencv_utils::saveImageInTemp("/targets/" + to_string(boardId()) + to_string(workflowId()), targetImgs[i]);
+            }
             m_tensorrtDL->getClassifyAndSegmentResult(targetImgs, {m_fSensitivity}, vClsIndex, vMaskImg, m_score);
 
             result_handle(vMaskImg,vClsIndex,result);
@@ -751,7 +844,7 @@ bool AppWorkflow::reconfigParameters()
                 continue;
             }
             return false;
-        }
+        }        
         cout << left << " " << top << " " << right << " " << bottom << endl;
         double scale_x = IMAGE_WIDTH/KOUTU_WIDTH;
         double scale_y = IMAGE_HEIGHT/KOUTU_HEIGHT;
@@ -762,12 +855,12 @@ bool AppWorkflow::reconfigParameters()
         }
         else
         {   
-            m_boardRoiRects.emplace_back(Rect(Point(left-20, top-20), Point(right+20, bottom+20)));
+            m_boardRoiRects.emplace_back(Rect(Point(left-20, top-20), Point(right+20, bottom+20)));    
             if (m_lastColCount != 0)
             {
                 int m_lastColCount_ = workflowId()==0 ? m_lastColCount : m_iColCount - m_lastColCount;
                 m_iColCount = boardIdx==0 ? m_iColCount : m_lastColCount_;          //mqd
-            }                        
+            }                    
             int tabletHeight = (bottom-top + m_iRowOffset * (m_iRowCount - 1)) / m_iRowCount;
             int tabletWidth = (right-left + m_iColOffset * (m_iColCount - 1)) / m_iColCount;
             for (int r = 0; r < m_iRowCount; r++)

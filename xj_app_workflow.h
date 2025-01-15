@@ -157,6 +157,9 @@ private:
     bool position(const cv::Mat &frame, const std::vector<cv::Rect> &targetRoiRects, std::vector<cv::Mat> &croppedImgs, std::vector<int> &targetResults);
     bool findBox(const cv::Mat img, const int num, std::vector< std::vector<cv::Rect>> &box);
     bool findBox1(const std::vector< std::vector<cv::Point>> contours, const int SetArea, std::vector<cv::Rect> &box);
+    bool tabletRoi(std::vector<cv::Rect> &boardRoiRects, std::vector<cv::Rect> &yaoliRects, const int &tabletId, std::vector<cv::Rect> &v_yaoliRoi, std::vector<int> &targetResults);
+    bool piHaoRoi(std::vector<cv::Rect> &boardRoiRects, std::vector<cv::Rect> &pihaoRects, const int &tabletId, std::vector<cv::Rect> &v_pihaoRoi, std::vector<int> &targetResults);
+    bool boardRoi(std::vector<cv::Rect> &boardRoiRects, std::vector<cv::Rect> &boardRects, std::vector<cv::Rect> &v_boardRoi);
 
     std::vector<std::vector<float>> m_colorTable;
     void fileToString(std::vector<std::string> &record, const std::string &line, char delimiter);
